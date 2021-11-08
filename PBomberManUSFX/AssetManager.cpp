@@ -9,7 +9,7 @@
         // load font
         loadFont();
         // load textures
-        loadTexture(renderer, Texture::MenuBack, "assets/menu_title.png");
+        loadTexture(renderer, Texture::MenuBack, "resources/menu_title.png");
         //loadTexture(renderer, Texture::Stone, "assets/stone.png");
         //loadTexture(renderer, Texture::Grass, "assets/grass.png");
         //loadTexture(renderer, Texture::Brick, "assets/brick.png");
@@ -21,8 +21,8 @@
         //loadTexture(renderer, Texture::Explosion, "assets/explosion.png");
         //loadTexture(renderer, Texture::Door, "assets/door.png");
         // load music
-        loadMusic(MusicEnum::MainMenu, "assets/main_theme.ogg");
-        loadMusic(MusicEnum::Level, "assets/level.ogg");
+        loadMusic(MusicEnum::MainMenu, "resources/main_theme.ogg");
+        loadMusic(MusicEnum::Level, "resources/level.ogg");
         // load sounds
         //loadSound(SoundEnum::Win, "assets/win.wav");
         //loadSound(SoundEnum::Lose, "assets/lose.wav");
@@ -56,7 +56,7 @@
     void AssetManager::loadFont()
     {
         // load font
-        font = std::shared_ptr<TTF_Font>(TTF_OpenFont("assets/font.ttf", 32), TTF_CloseFont);
+        font = std::shared_ptr<TTF_Font>(TTF_OpenFont("resources/font.ttf", 32), TTF_CloseFont);
         if (!font)
         {
             std::cout << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;

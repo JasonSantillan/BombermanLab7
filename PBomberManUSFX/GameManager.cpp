@@ -21,49 +21,56 @@ bool GameManager::onInit() {
 	//Initialization flag
 	bool success = true;
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
 		cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
 		success = false;
 	}
 	//----------------------------------------------------------------------------------------------
-	//Añadí TTF
+	//Añadí TTF y Mixer
 	else {
 		if (TTF_Init() != 0) {
 			cout << "TTF_Init Error: " << TTF_GetError() << endl;
 			success = false;
 		}
-	//---------------------------------------------------------------------------------------------
-		else
-		{
-			//Create window
-			gWindow = SDL_CreateWindow("Bomberman Man USFX", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-			if (gWindow == nullptr)
+		else {
+			if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 			{
-				cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
+				std::cout << "Mix_OpenAudio Error: " << Mix_GetError() << std::endl;
 				success = false;
 			}
+	//---------------------------------------------------------------------------------------------
 			else
 			{
-
-				////Create vsynced renderer for window
-				gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-				if (gRenderer == nullptr)
+				//Create window
+				gWindow = SDL_CreateWindow("Bomberman Man USFX", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+				if (gWindow == nullptr)
 				{
-					cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
+					cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 					success = false;
 				}
 				else
 				{
-					//Initialize renderer color
-					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-					//Initialize PNG loading
-					int imgFlags = IMG_INIT_PNG;
-					if (!(IMG_Init(imgFlags) & imgFlags))
+					////Create vsynced renderer for window
+					gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+					if (gRenderer == nullptr)
 					{
-						printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+						cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
 						success = false;
+					}
+					else
+					{
+						//Initialize renderer color
+						SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+						//Initialize PNG loading
+						int imgFlags = IMG_INIT_PNG;
+						if (!(IMG_Init(imgFlags) & imgFlags))
+						{
+							printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+							success = false;
+						}
 					}
 				}
 			}
@@ -81,8 +88,8 @@ bool GameManager::loadContent()
 	 //load assets
 	assetManager->load(gRenderer);
 	// create menu scene
-	sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
-	sceneManager->activateScene("menu");
+	//sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
+	//sceneManager->activateScene("menu");
 
 	//-------------------------------------------------------------------------------------------------
 
