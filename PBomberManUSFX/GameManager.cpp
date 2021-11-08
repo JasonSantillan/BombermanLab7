@@ -79,6 +79,7 @@ bool GameManager::onInit() {
 
 	assetManager = new AssetManager();
 	sceneManager = new SceneManager();
+	isRunning = false;
 	return success;
 }
 
@@ -86,6 +87,13 @@ bool GameManager::loadContent()
 {
 	//-------------------------------------------------------------------------------------------------
 	 //load assets
+	if (isRunning)
+	{
+		return false;
+	}
+
+	isRunning = true;
+
 	assetManager->load(gRenderer);
 	// create menu scene
 	//sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
@@ -201,4 +209,34 @@ int GameManager::onExecute() {
 
 	return 0;
 
+}
+
+void GameManager::stop()
+{
+	isRunning = false;
+}
+
+int GameManager::getWindowWidth() const
+{
+	return SCREEN_WIDTH;
+}
+
+int GameManager::getWindowHeight() const
+{
+	return SCREEN_HEIGHT;
+}
+
+SDL_Renderer* GameManager::getRenderer() const
+{
+	return gRenderer;
+}
+
+SceneManager* GameManager::getSceneManager() const
+{
+	return sceneManager;
+}
+
+AssetManager* GameManager::getAssetManager() const
+{
+	return assetManager;
 }

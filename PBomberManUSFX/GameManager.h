@@ -21,8 +21,6 @@
 //-------------------------------------------------------------------------------------------------
 using namespace std;
 
-const int SCREEN_WIDTH = 850;
-const int SCREEN_HEIGHT = 510;
   
 class GameManager
 {
@@ -31,6 +29,11 @@ private:
     //Lo que añadí
     SceneManager* sceneManager = nullptr; // scene manager
     AssetManager* assetManager = nullptr; // asset manager
+    bool isRunning;
+
+    int SCREEN_WIDTH = 850;
+    int SCREEN_HEIGHT = 510;
+
     //-------------------------------------------------------------------------------------------------
 
 
@@ -69,4 +72,13 @@ public:
     void onLoop();
     void onRender();
     void close();    
+    //---------------------------------------------------------------------------------------------
+    //Métodos que añadí
+
+    void stop();
+    int getWindowWidth() const;
+    int getWindowHeight() const;
+    SDL_Renderer* getRenderer() const;
+    SceneManager* getSceneManager() const;
+    AssetManager* getAssetManager() const;
 };
