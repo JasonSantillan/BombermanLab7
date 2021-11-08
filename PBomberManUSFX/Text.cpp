@@ -1,10 +1,9 @@
 #include <iostream>
 
 #include "Text.h"
-#include "GameActor.h"
 
     Text::Text(std::shared_ptr<TTF_Font> _font, SDL_Renderer* _renderer, const std::string& _text)
-        : GameObject() , Sprite(nullptr, nullptr)
+        : GameObject()
     {
         this->font = _font;
         this->text = _text;
@@ -41,7 +40,7 @@
             std::cout << "TTF_RenderText_SolidError: " << TTF_GetError() << std::endl;
             return;
         }
-
+        
         // convert to texture
         texture = std::shared_ptr<SDL_Texture>(SDL_CreateTextureFromSurface(renderer, surface), SDL_DestroyTexture);
         if (!texture)
