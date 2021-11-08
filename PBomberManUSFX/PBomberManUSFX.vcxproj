@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Bomberman.cpp" />
     <ClCompile Include="Detonador.cpp" />
     <ClCompile Include="Enemigo.cpp" />
@@ -153,10 +154,13 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePawn.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Muro.cpp" />
     <ClCompile Include="MuroCeramica.cpp" />
     <ClCompile Include="MuroMetal.cpp" />
     <ClCompile Include="principal.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SueloCesped.cpp" />
     <ClCompile Include="system\KeyboardInput.cpp" />
@@ -166,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Bomberman.h" />
     <ClInclude Include="Detonador.h" />
     <ClInclude Include="Enemigo.h" />
@@ -175,10 +180,13 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePawn.h" />
     <ClInclude Include="MapGenerator.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Muro.h" />
     <ClInclude Include="MuroCeramica.h" />
     <ClInclude Include="MuroMetal.h" />
     <ClInclude Include="Pila.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SueloCesped.h" />
     <ClInclude Include="system\KeyboardInput.h" />

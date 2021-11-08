@@ -1,4 +1,6 @@
 #pragma once
+
+
 #include<iostream>
 #include <string>
 #include <stdlib.h>
@@ -12,7 +14,11 @@
 #include "MapGenerator.h"
 #include "system/KeyboardInput.h"
 #include "TilesGraph.h"
-
+//-------------------------------------------------------------------------------------------------
+#include "SceneManager.h"
+#include "AssetManager.h"
+#include <memory>
+//-------------------------------------------------------------------------------------------------
 using namespace std;
 
 const int SCREEN_WIDTH = 850;
@@ -21,6 +27,13 @@ const int SCREEN_HEIGHT = 510;
 class GameManager
 {
 private:
+    //-------------------------------------------------------------------------------------------------
+    //Lo que añadí
+    SceneManager* sceneManager = nullptr; // scene manager
+    AssetManager* assetManager = nullptr; // asset manager
+    //-------------------------------------------------------------------------------------------------
+
+
     //The window we'll be rendering to
     SDL_Window* gWindow;
 
@@ -42,6 +55,7 @@ private:
 
     SDL_Rect camera;
     Uint32 lastTickTime = 0;
+
 
 public:
     // Constructores & destructores

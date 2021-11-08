@@ -1,4 +1,9 @@
 #include "GameManager.h"
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <iostream>
 
 
 GameManager::GameManager() {
@@ -21,53 +26,74 @@ bool GameManager::onInit() {
 		cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
 		success = false;
 	}
-	else
-	{
-		//Create window
-		gWindow = SDL_CreateWindow("Bomberman Man USFX", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (gWindow == nullptr)
-		{
-			cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
+	//----------------------------------------------------------------------------------------------
+	//Añadí TTF
+	else {
+		if (TTF_Init() != 0) {
+			cout << "TTF_Init Error: " << TTF_GetError() << endl;
 			success = false;
 		}
+	//---------------------------------------------------------------------------------------------
 		else
 		{
-
-			////Create vsynced renderer for window
-			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-			if (gRenderer == nullptr)
+			//Create window
+			gWindow = SDL_CreateWindow("Bomberman Man USFX", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+			if (gWindow == nullptr)
 			{
-				cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
+				cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 				success = false;
 			}
 			else
 			{
-				//Initialize renderer color
-				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-				//Initialize PNG loading
-				int imgFlags = IMG_INIT_PNG;
-				if (!(IMG_Init(imgFlags) & imgFlags))
+				////Create vsynced renderer for window
+				gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+				if (gRenderer == nullptr)
 				{
-					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+					cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
 					success = false;
+				}
+				else
+				{
+					//Initialize renderer color
+					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+
+					//Initialize PNG loading
+					int imgFlags = IMG_INIT_PNG;
+					if (!(IMG_Init(imgFlags) & imgFlags))
+					{
+						printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+						success = false;
+					}
 				}
 			}
 		}
 	}
 
+	assetManager = new AssetManager();
+	sceneManager = new SceneManager();
 	return success;
 }
 
 bool GameManager::loadContent()
 {
+	//-------------------------------------------------------------------------------------------------
+	 //load assets
+	assetManager->load(gRenderer);
+	// create menu scene
+	sceneManager->addScene("menu", std::make_shared<MenuScene>(this));
+	sceneManager->activateScene("menu");
+
+	//-------------------------------------------------------------------------------------------------
+
+
 	tilesGraphGM = new TilesGraph(25, 15, 850, 510);
 	GameActor::tilesGraph = tilesGraphGM;
 
 	generadorMapa = new MapGenerator(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT, tilesGraphGM);
 	generadorMapa->crearObjetosJuego("resources/level1.txt");
 	generadorMapa->transferirObjetosJuego(actoresJuego);
-
+	                               
 	if (actoresJuego.size() > 0)
 		return true;
 
