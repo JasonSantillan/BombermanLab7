@@ -29,20 +29,20 @@
          *
          * @param object
          */
-        void addObject(GameObject* object);
+        void addObject(std::shared_ptr<GameObject> object);
         /**
          * @brief Add object to scene for drawing to specific position
          *
          * @param object
          * @param position - position where to insert object
          */
-        void insertObject(GameObject* object, int position);
+        void insertObject(std::shared_ptr<GameObject> object, int position);
         /**
          * @brief Remove object from scene
          *
          * @param object
          */
-        void removeObject(GameObject* object);
+        void removeObject(std::shared_ptr<GameObject> object);
         /**
          * @brief Set the Camera object to specific position
          *
@@ -86,7 +86,7 @@
         GameManager* game = nullptr; // pointer to game for use in all scenes
 
     private:
-        std::vector<GameObject*> objects; // objects to update and draw
+        std::vector<std::shared_ptr<GameObject>> objects; // objects to update and draw
         //SDL_Rect& camera;                              // camera position
     };
 
