@@ -21,7 +21,7 @@
 //-------------------------------------------------------------------------------------------------
 using namespace std;
 
-  
+
 class GameManager
 {
 private:
@@ -45,7 +45,7 @@ private:
 
     //Current displayed texture
     SDL_Texture* gTexture = nullptr;
-       
+
     vector<GameObject*> actoresJuego;
     MapGenerator* generadorMapa;
     KeyboardInput* keyboardInput;
@@ -71,14 +71,16 @@ public:
     void onEvent(SDL_Event* _event);
     void onLoop();
     void onRender();
-    void close();    
+    void close();
+
     //---------------------------------------------------------------------------------------------
     //Métodos que añadí
-
     void stop();
     int getWindowWidth() const;
     int getWindowHeight() const;
     SDL_Renderer* getRenderer() const;
     SceneManager* getSceneManager() const;
     AssetManager* getAssetManager() const;
+    //-------------------------------------------------------------------------------------------------
+
 };

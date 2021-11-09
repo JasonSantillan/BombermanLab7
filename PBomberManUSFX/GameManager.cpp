@@ -21,12 +21,13 @@ bool GameManager::onInit() {
 	//Initialization flag
 	bool success = true;
 
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
 		success = false;
 	}
-	//----------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------
+	//-------------------------------------------------------------------------------------------------
 	//Añadí TTF y Mixer
 	else {
 		if (TTF_Init() != 0) {
@@ -39,7 +40,8 @@ bool GameManager::onInit() {
 				std::cout << "Mix_OpenAudio Error: " << Mix_GetError() << std::endl;
 				success = false;
 			}
-	//---------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------------
 			else
 			{
 				//Create window
@@ -76,10 +78,12 @@ bool GameManager::onInit() {
 			}
 		}
 	}
-
+	//-------------------------------------------------------------------------------------------------
 	assetManager = new AssetManager();
 	sceneManager = new SceneManager();
 	isRunning = false;
+	//-------------------------------------------------------------------------------------------------
+
 	return success;
 }
 
@@ -108,7 +112,7 @@ bool GameManager::loadContent()
 	generadorMapa = new MapGenerator(gRenderer, SCREEN_WIDTH, SCREEN_HEIGHT, tilesGraphGM);
 	generadorMapa->crearObjetosJuego("resources/level1.txt");
 	generadorMapa->transferirObjetosJuego(actoresJuego);
-	                               
+
 	if (actoresJuego.size() > 0)
 		return true;
 
@@ -128,14 +132,14 @@ void GameManager::onEvent(SDL_Event* _event)
 	case SDL_KEYUP:
 		keyboardInput->TurnKeyOff(_event->key.keysym.sym);
 		break;
-	//	switch (_event->key.keysym.sym) {
-	//	case SDLK_f:
-	//		//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
-	//		break;
-	//	case SDLK_n:
-	//		//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_MAXIMIZED);
-	//		break;
-	//	}
+		//	switch (_event->key.keysym.sym) {
+		//	case SDLK_f:
+		//		//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN);
+		//		break;
+		//	case SDLK_n:
+		//		//SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_MAXIMIZED);
+		//		break;
+		//	}
 	}
 }
 
